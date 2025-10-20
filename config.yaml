@@ -1,0 +1,80 @@
+# TouchDesigner Apple Depth Pro Server Configuration
+
+# Project paths
+project:
+  root: "/Users/jarrett/Projects/UCSB/Vision/touchdesigner-apple-depthpro"
+  depth_pro_path: "external/ml-depth-pro"
+  checkpoint_path: "external/ml-depth-pro/checkpoints"
+
+# Server settings
+server:
+  host: "localhost"
+  port: 9995
+
+  # Output modes: "socket", "syphon", "both"
+  output_mode: "both"
+
+  # Syphon settings (macOS only)
+  syphon:
+    enabled: true
+    server_name: "Depth Pro Output"
+
+  # Connection settings
+  connection:
+    startup_timeout: 90
+    retry_attempts: 60
+    retry_delay: 2.0
+
+# Depth Pro model settings
+model:
+  # Device: "mps" (Apple Silicon), "cuda" (NVIDIA), "cpu"
+  device: "mps"
+
+  # Precision: "float16" or "float32"
+  precision: "float16"
+
+  # Model checkpoint (relative to checkpoint_path)
+  checkpoint: "depth_pro.pt"
+
+# Processing settings
+processing:
+  # Input resolution - smaller = faster!
+  # Recommended presets:
+  #   Fast: 384x384 (30+ FPS on M1)
+  #   Balanced: 512x512 (20-25 FPS on M1)
+  #   Quality: 768x768 (12-15 FPS on M1)
+  #   Best: 1024x1024 (8-12 FPS on M1)
+  input_width: 512
+  input_height: 512
+
+  # Output format
+  output:
+    # Colormap: "viridis", "plasma", "inferno", "magma", "turbo", "jet", "gray"
+    colormap: "turbo"
+
+    # Normalize depth to 0-1 range
+    normalize: true
+
+    # Invert depth (farther = brighter)
+    invert: false
+
+    # Apply gamma correction (0.5 - 2.0)
+    gamma: 1.0
+
+# Performance tuning
+performance:
+  # Queue size for frame buffering (lower = less latency, higher = smoother)
+  send_queue_size: 2
+  receive_queue_size: 2
+
+  # Warmup frames to process on startup
+  warmup_frames: 3
+
+  # Log FPS every N frames
+  log_interval: 30
+
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  log_file: "depth_pro_server.log"
+  console_output: true

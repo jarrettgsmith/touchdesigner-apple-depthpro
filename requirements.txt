@@ -1,0 +1,17 @@
+# Core dependencies
+torch>=2.0.0
+torchvision>=0.15.0
+numpy>=1.24.0,<2.0
+pillow>=9.0.0
+opencv-python==4.10.0.84
+pyyaml>=6.0
+
+# Depth Pro dependencies (from ml-depth-pro)
+timm>=0.9.0
+matplotlib>=3.7.0
+
+# Optional: Syphon support (macOS only)
+syphon-python>=0.1.0; sys_platform == 'darwin'
+
+# Utilities
+tqdm>=4.65.0
