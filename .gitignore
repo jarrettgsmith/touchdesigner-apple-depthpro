@@ -37,3 +37,4 @@ Backup/
 # Temporary files
 *.tmp
 tmp/
+external/ml-depth-pro/
